@@ -5,10 +5,8 @@ import pymysql
 import re
 from datetime import datetime, timedelta
 
-
 now = datetime.now().date()
 dateFrom = str(now - timedelta(days=1))
-
 try:
     connection = pymysql.connect()
     with connection.cursor() as cursor:
@@ -36,6 +34,7 @@ def get_num_page():
         'referer': 'https://aliexpress.ru/wholesale?CatId=&page=2&SearchText=%D1%82%D0%B5%D1%80%D0%BC%D0%BE%D0%BF%D0%B0%D1%81%D1%82%D0%B0',
         'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
     }
+    
     data2= '{"catId":"","searchText":"термопаста","page":1}'
     data2 = data2.encode('utf-8')
     req = requests.post('https://aliexpress.ru/aer-webapi/v1/search', headers=headers, data=data2)
@@ -142,6 +141,7 @@ def get_ratings_and_low_price(id_ali_goods):
         'referer': 'https://aliexpress.ru/item/1005003036320874.html?item_id=1005003036320874&sku_id=12000023369577260&spm=a2g2w.productlist.0.0.72af3433H3chPK',
         'accept-language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
     }
+    
     data = '{"productId":'+str(id_ali_goods)+',"starFilter":"all","sort":"default","pageSize":10,"translate":true,"local":false}'
     response = requests.post('https://aliexpress.ru/aer-api/v1/review/filters', headers=headers, data=data)
     src = response.text
